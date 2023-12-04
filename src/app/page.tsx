@@ -1,9 +1,9 @@
-
 import React from 'react'
+import { Button } from 'antd';
 
 const page = () => {
   return (
-    <div>page</div>
+    <Button>Button</Button>
   )
 }
 
