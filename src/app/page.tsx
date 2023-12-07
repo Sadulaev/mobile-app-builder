@@ -1,10 +1,11 @@
-import React from 'react'
-import { Button } from 'antd';
+"use client";
+
+import React, { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 const page = () => {
-  return (
-    <Button>Button</Button>
-  )
-}
+  useEffect(() => redirect("/dashboard"), []);
+  return "";
+};
 
 export default page;
