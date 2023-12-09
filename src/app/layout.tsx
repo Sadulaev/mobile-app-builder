@@ -1,7 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
-import "./global.css";
 import MainLayout from "../layouts/MainLayout";
+import "../global.css";
+import { ConfigProvider } from "antd";
 
 export const metadata: Metadata = {
   title: "Mobile App Builder",
@@ -16,7 +17,15 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <MainLayout>{children}</MainLayout>
+        <ConfigProvider
+        theme={{
+          token: {
+            fontFamily: 'Tektur'
+          },
+        }}
+        >
+          <MainLayout>{children}</MainLayout>
+        </ConfigProvider>
       </body>
     </html>
   );

@@ -1,9 +1,9 @@
 "use client";
 
+import React from "react";
 import { Layout } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content } from "antd/es/layout/layout";
-import React from "react";
 import Sidebar from "../components/MainLayout/Sidebar";
 import ContentWindow from "../components/MainLayout/ContentWindow";
 

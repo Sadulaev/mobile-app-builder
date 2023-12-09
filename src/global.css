@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Tektur';
+    src: url('./assets/fonts/Tektur-VariableFont_wdth\,wght.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}

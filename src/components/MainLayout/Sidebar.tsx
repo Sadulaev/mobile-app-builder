@@ -47,12 +47,13 @@ const Sidebar = () => {
       </div>
       <div className="flex flex-col justify-between grow">
         <div className="flex flex-col gap-8">
-          {sidebarPages.map((page) => {
+          {sidebarPages.map((page, index) => {
             return (
               <div
                 className={`mx-auto w-10 h-10 rounded-md flex justify-center items-center hover:bg-orange-400 hover:text-white hover:cursor-pointer transition-[0.2s] ${
                   true ? "hover:scale-125" : ""
                 }`}
+                key={index}
               >
                 {page.component}
               </div>
@@ -60,12 +61,13 @@ const Sidebar = () => {
           })}
         </div>
         <div className="flex flex-col gap-8">
-          {sidebarSettings.map((page) => {
+          {sidebarSettings.map((page, index) => {
             return (
               <div
                 className={`mx-auto w-10 h-10 rounded-md flex justify-center items-center hover:bg-orange-400 hover:text-white hover:cursor-pointer transition-[0.2s] ${
                   true ? "hover:scale-125" : ""
                 }`}
+                key={index}
               >
                 {page.component}
               </div>
