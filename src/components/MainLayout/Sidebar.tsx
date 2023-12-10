@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { Avatar, theme } from "antd";
 
@@ -9,17 +9,33 @@ import {
   SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import useToken from "antd/es/theme/useToken";
+import { usePathname, useRouter } from "next/navigation";
 
 const Sidebar = () => {
-  const sidebarPages = [
-    {
-      component: <BarChartOutlined className="text-2xl" />,
-      text: "Some test",
-    },
-    { component: <CalendarOutlined className="text-2xl" />, text: "Some test" },
-    { component: <MobileOutlined className="text-2xl " />, text: "Some test" },
-  ];
+  const pathname = usePathname();
+  const router = useRouter();
+  const sidebarPages = useMemo(() => {
+    return [
+      {
+        component: <BarChartOutlined className="text-2xl" />,
+        text: "Some test",
+        isCurrentPage: pathname.split("/")[1] === "dashboard",
+        link: "dashboard",
+      },
+      {
+        component: <CalendarOutlined className="text-2xl" />,
+        text: "Some test",
+        isCurrentPage: false,
+        link: "",
+      },
+      {
+        component: <MobileOutlined className="text-2xl " />,
+        text: "Some test",
+        isCurrentPage: pathname.split("/")[1] === "builder",
+        link: "builder",
+      },
+    ];
+  }, [pathname]);
 
   const sidebarSettings = [
     {
@@ -50,10 +66,13 @@ const Sidebar = () => {
           {sidebarPages.map((page, index) => {
             return (
               <div
-                className={`mx-auto w-10 h-10 rounded-md flex justify-center items-center hover:bg-orange-400 hover:text-white hover:cursor-pointer transition-[0.2s] ${
-                  true ? "hover:scale-125" : ""
+                className={`mx-auto w-10 h-10 rounded-md flex justify-center items-center transition-[0.2s] ${
+                  page.isCurrentPage
+                    ? "scale-125 text-white bg-orange-400"
+                    : "hover:scale-125 hover:cursor-pointer hover:text-white hover:bg-orange-400"
                 }`}
                 key={index}
+                onClick={() => router.push(`/${page.link}`)}
               >
                 {page.component}
               </div>

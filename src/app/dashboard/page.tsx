@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import TasksBlock from "../../components/Dashboard/TasksBlock";
-import { TaskType } from "../../types/TaskModel";
+import { TaskType } from "../../types/TaskModels";
 import ChartsBlock from "../../components/Dashboard/ChartsBlock";
 import TrafficsBlock from "../../components/Dashboard/TrafficsBlock";
 import ManagersBlock from "../../components/Dashboard/ManagersBlock";
@@ -36,7 +36,7 @@ const tasks: TaskType[] = [
 
 type Props = {};
 
-const index = (props: Props) => {
+const page = (props: Props) => {
   return (
     <div className="w-full h-full flex flex-col gap-4">
       <TasksBlock tasks={tasks} />
@@ -50,4 +50,4 @@ const index = (props: Props) => {
   );
 };
 
-export default index;
+export default page;

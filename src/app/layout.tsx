@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import MainLayout from "../layouts/MainLayout";
 import "../global.css";
 import { ConfigProvider } from "antd";
+import GlobalContextLayout from "../context/GlobalContext";
 
 export const metadata: Metadata = {
   title: "Mobile App Builder",
@@ -17,15 +18,17 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <ConfigProvider
-        theme={{
-          token: {
-            fontFamily: 'Tektur'
-          },
-        }}
-        >
-          <MainLayout>{children}</MainLayout>
-        </ConfigProvider>
+        <GlobalContextLayout>
+          <ConfigProvider
+            theme={{
+              token: {
+                fontFamily: "Tektur",
+              },
+            }}
+          >
+            <MainLayout>{children}</MainLayout>
+          </ConfigProvider>
+        </GlobalContextLayout>
       </body>
     </html>
   );
