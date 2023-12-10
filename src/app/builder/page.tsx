@@ -1,20 +1,14 @@
 "use client";
-import React, { useContext } from "react";
-import { DeploySteps, MobileProjectType } from "../../types/MobileModels";
-import ProjectCard from "../../components/Builder/ProjectCard";
-import GlobalContextLayout, {
-  GlobalContext,
-} from "../../context/GlobalContext";
+import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 const index = () => {
-  const { projects } = useContext(GlobalContext);
-  return (
-    <div className="flex flex-wrap gap-4">
-      {projects.map((project) => (
-        <ProjectCard key={project.id} {...project} />
-      ))}
-    </div>
-  );
+  const pathname = usePathname();
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/projects");
+  }, [pathname]);
+  return "";
 };
 
 export default index;

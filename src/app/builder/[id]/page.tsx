@@ -6,7 +6,7 @@ import { Typography } from "antd";
 import PhoneContentBlock from "../../../components/Builder/PhoneContentBlock";
 import { ScreenSizesType } from "../../../types/MobileModels";
 import BuilderWorkspaceLayout from "../../../layouts/BuilderWorkspaceLayout";
-import WorkSpaceContextLayout from "../../../context/WorkSpaceContext";
+import { WorkspaceProvider } from "../../../context/WorkSpaceContext";
 
 const { Title } = Typography;
 
@@ -19,11 +19,11 @@ const index = () => {
   };
 
   return (
-    <WorkSpaceContextLayout>
+    <WorkspaceProvider>
       <BuilderWorkspaceLayout>
         <PhoneContentBlock {...screenDefault} />
       </BuilderWorkspaceLayout>
-    </WorkSpaceContextLayout>
+    </WorkspaceProvider>
   );
 };
 

@@ -1,33 +1,61 @@
-"use client";
+import React, {
+  createContext,
+  FC,
+  useReducer,
+  useContext,
+  Dispatch,
+  ReactNode,
+} from "react";
 
-import { Context, FC, createContext, useState } from "react";
+type Action = { type: "UPDATE_WORKSPACE"; payload: Partial<ContextObjectType> };
+
+type DispatchType = Dispatch<Action>;
 
 type ContextObjectType = {
-  zoom?: number;
-  mode?: "dev" | "watch";
-  setWorkspace?: (updatedData: ContextObjectType) => void;
+  zoom: number;
+  mode: "dev" | "watch";
 };
 
-export const WorkspaceContext: Context<ContextObjectType> = createContext({});
+const initialState: ContextObjectType = {
+  zoom: 75,
+  mode: "watch",
+};
 
-const WorkSpaceContextLayout: React.FC<{ children: React.ReactNode }> = ({
+const WorkspaceContext = createContext<
+  { state: ContextObjectType; dispatch: DispatchType } | undefined
+>(undefined);
+
+const workspaceReducer = (
+  state: ContextObjectType,
+  action: Action
+): ContextObjectType => {
+  switch (action.type) {
+    case "UPDATE_WORKSPACE":
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
+};
+
+export const WorkspaceProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [workspaceData, setWorkspaceData] = useState<ContextObjectType>({
-    zoom: 75,
-    mode: "watch",
-    setWorkspace: () => {},
-  });
-  const editWorkspaceData = (updatedData: ContextObjectType) => {
-    setWorkspaceData({ ...workspaceData, ...updatedData });
-  };
+  const [state, dispatch] = useReducer(workspaceReducer, initialState);
+
   return (
-    <WorkspaceContext.Provider
-      value={{ ...workspaceData, setWorkspace: editWorkspaceData }}
-    >
+    <WorkspaceContext.Provider value={{ state, dispatch }}>
       {children}
     </WorkspaceContext.Provider>
   );
 };
 
-export default WorkSpaceContextLayout;
+export const useWorkspace = (): {
+  state: ContextObjectType;
+  dispatch: DispatchType;
+} => {
+  const context = useContext(WorkspaceContext);
+  if (context === undefined) {
+    throw new Error("useWorkspace must be used within a WorkspaceProvider");
+  }
+  return context;
+};

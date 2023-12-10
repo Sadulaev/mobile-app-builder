@@ -5,13 +5,14 @@ import { Typography } from "antd";
 
 import DefaultScreen from "../../assets/phones/default.svg";
 import { ScreenSizesType } from "../../types/MobileModels";
-import { WorkspaceContext } from "../../context/WorkSpaceContext";
+import { useWorkspace } from "../../context/WorkSpaceContext";
 
 const { Title } = Typography;
 
 const PhoneContentBlock: FC<ScreenSizesType> = (props) => {
   const { width, height, padding, borderRadius } = props;
-  const { zoom } = useContext(WorkspaceContext);
+  const { state, dispatch } = useWorkspace();
+  const { mode, zoom } = state;
   return (
     <div
       className="absolute top-50% bottom-auto left-auto right-auto z-10"

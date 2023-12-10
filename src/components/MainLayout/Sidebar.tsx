@@ -1,19 +1,24 @@
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
 
 import { Avatar, theme } from "antd";
 
 import {
   BarChartOutlined,
-  CalendarOutlined,
-  MobileOutlined,
   SettingOutlined,
   LogoutOutlined,
+  PlayCircleOutlined,
+  AppstoreOutlined,
+  DeploymentUnitOutlined,
 } from "@ant-design/icons";
 import { usePathname, useRouter } from "next/navigation";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Sidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
+
+  const { projects } = useContext(GlobalContext);
+
   const sidebarPages = useMemo(() => {
     return [
       {
@@ -23,16 +28,16 @@ const Sidebar = () => {
         link: "dashboard",
       },
       {
-        component: <CalendarOutlined className="text-2xl" />,
+        component: <AppstoreOutlined className="text-2xl" />,
         text: "Some test",
-        isCurrentPage: false,
-        link: "",
+        isCurrentPage: pathname.split("/")[1] === "projects",
+        link: "projects",
       },
       {
-        component: <MobileOutlined className="text-2xl " />,
+        component: <DeploymentUnitOutlined className="text-2xl " />,
         text: "Some test",
         isCurrentPage: pathname.split("/")[1] === "builder",
-        link: "builder",
+        link: `builder/${projects[0].id}`,
       },
     ];
   }, [pathname]);
@@ -68,7 +73,7 @@ const Sidebar = () => {
               <div
                 className={`mx-auto w-10 h-10 rounded-md flex justify-center items-center transition-[0.2s] ${
                   page.isCurrentPage
-                    ? "scale-125 text-white bg-orange-400"
+                    ? "scale-125 text-white bg-orange-400 pointer-events-none"
                     : "hover:scale-125 hover:cursor-pointer hover:text-white hover:bg-orange-400"
                 }`}
                 key={index}
